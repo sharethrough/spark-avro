@@ -3,3 +3,4 @@ target/
 .idea/
 .idea_modules/
 *.iml
+sbt-launch.jar

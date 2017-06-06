@@ -33,6 +33,7 @@ import org.apache.avro.mapreduce.AvroKeyOutputFormat
 import org.apache.hadoop.io.NullWritable
 import org.apache.hadoop.mapreduce.{RecordWriter, TaskAttemptContext, TaskAttemptID}
 
+import org.apache.spark.SPARK_VERSION
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.execution.datasources.OutputWriter
 import org.apache.spark.sql.types._
@@ -55,7 +56,14 @@ private[avro] class AvroOutputWriter(
     new AvroKeyOutputFormat[GenericRecord]() {
 
       override def getDefaultWorkFile(context: TaskAttemptContext, extension: String): Path = {
-        new Path(path)
+        if (SPARK_VERSION.startsWith("2.0")) {
+          val uniqueWriteJobId = context.getConfiguration.get("spark.sql.sources.writeJobUUID")
+          val taskAttemptId: TaskAttemptID = context.getTaskAttemptID
+          val split = taskAttemptId.getTaskID.getId
+          new Path(path, f"part-r-$split%05d-$uniqueWriteJobId$extension")
+        } else {
+          new Path(path)
+        }
       }
 
       @throws(classOf[IOException])
