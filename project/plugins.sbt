@@ -6,20 +6,15 @@ resolvers += "sonatype-releases" at "https://oss.sonatype.org/content/repositori
 
 resolvers += "Spark Package Main Repo" at "https://dl.bintray.com/spark-packages/maven"
 
-addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "4.0.0")
-
-addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.6.0")
-
-addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.0.0")
-
 addSbtPlugin("org.spark-packages" % "sbt-spark-package" % "0.2.3")
 
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.0")
+resolvers += Resolver.url("libs-release-local", url(sys.env("ARTIFACTORY_URL")))(Resolver.ivyStylePatterns)
 
-addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.8.0")
+credentials += Credentials(
+  sys.env("MAVEN_REALM"),
+  sys.env("MAVEN_HOST"),
+  sys.env("MAVEN_USER"),
+  sys.env("MAVEN_PASSWORD")
+)
 
-addSbtPlugin("me.lessis" % "bintray-sbt" % "0.3.0")
-
-addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.0")
-
-
+addSbtPlugin("com.sharethrough" %% "sbt-base-settings" % "1.0.31")

@@ -64,8 +64,6 @@ coverageHighlighting := {
   else true
 }
 
-EclipseKeys.eclipseOutput := Some("target/eclipse")
-
 /********************
  * Release settings *
  ********************/
@@ -75,48 +73,3 @@ publishMavenStyle := true
 releaseCrossBuild := true
 
 licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
-
-releasePublishArtifactsAction := PgpKeys.publishSigned.value
-
-pomExtra :=
-  <url>https://github.com/databricks/spark-avro</url>
-  <scm>
-    <url>git@github.com:databricks/spark-avro.git</url>
-    <connection>scm:git:git@github.com:databricks/spark-avro.git</connection>
-  </scm>
-  <developers>
-    <developer>
-      <id>marmbrus</id>
-      <name>Michael Armbrust</name>
-      <url>https://github.com/marmbrus</url>
-    </developer>
-    <developer>
-      <id>JoshRosen</id>
-      <name>Josh Rosen</name>
-      <url>https://github.com/JoshRosen</url>
-    </developer>
-    <developer>
-      <id>vlyubin</id>
-      <name>Volodymyr Lyubinets</name>
-      <url>https://github.com/vlyubin</url>
-    </developer>
-  </developers>
-
-bintrayReleaseOnPublish in ThisBuild := false
-
-import ReleaseTransformations._
-
-// Add publishing to spark packages as another step.
-releaseProcess := Seq[ReleaseStep](
-  checkSnapshotDependencies,
-  inquireVersions,
-  runTest,
-  setReleaseVersion,
-  commitReleaseVersion,
-  tagRelease,
-  publishArtifacts,
-  setNextVersion,
-  commitNextVersion,
-  pushChanges,
-  releaseStepTask(spPublish)
-)
