@@ -35,13 +35,13 @@ spIgnoreProvided := true
 sparkComponents := Seq("sql")
 
 libraryDependencies ++= Seq(
-  "org.slf4j" % "slf4j-api" % "1.7.5",
-  "org.apache.avro" % "avro" % "1.7.6" exclude("org.mortbay.jetty", "servlet-api"),
-  "org.apache.avro" % "avro-mapred" % "1.7.7"  % "provided" classifier("hadoop2") exclude("org.mortbay.jetty", "servlet-api"),
+  "org.slf4j"             % "slf4j-api"   % "1.7.5",
+  "org.apache.avro"       % "avro"        % "1.8.1" exclude("org.mortbay.jetty", "servlet-api"),
+  "org.apache.avro"       % "avro-mapred" % "1.8.1"  % "provided" classifier("hadoop2") exclude("org.mortbay.jetty", "servlet-api"),
   // Kryo is provided by Spark, but we need this here in order to be able to import the @DefaultSerializer annotation:
-  "com.esotericsoftware" % "kryo-shaded" % "3.0.3" % "provided",
-  "org.scalatest" %% "scalatest" % "2.2.1" % "test",
-  "commons-io" % "commons-io" % "2.4" % "test"
+  "com.esotericsoftware"  % "kryo-shaded" % "3.0.3" % "provided",
+  "org.scalatest"         %% "scalatest"  % "2.2.1" % "test",
+  "commons-io"            % "commons-io"  % "2.4" % "test"
 )
 
 libraryDependencies ++= Seq(
